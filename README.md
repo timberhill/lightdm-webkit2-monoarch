@@ -25,18 +25,12 @@ These should be installed and configured.
     git clone git@github.com:timberhill/lightdm-webkit2-monoarch.git
     ```
 
-
-2. Copy it to the themes folder
+2. Install the theme
     ```sh
-    cp -r lightdm-webkit2-monoarch /usr/share/lightdm-webkit/themes/monoarch
+    cd lightdm-webkit2-monoarch && ./install.sh
     ```
 
-3. Use the theme in `/etc/lightdm/lightdm-webkit2-greeter.conf`: `webkit_theme = monoarch`
-    ```sh
-    sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = monoarch #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf
-    ```
-
-4. Reboot and all should be gut!
+3. Reboot and all should be gut!
 
 ## Customisation
 
