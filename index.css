@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'JetBrainsMono';
+  src: url('fonts/JetBrainsMono-Light.woff2') format('woff');
+  font-weight: lighter;
+  font-style: normal;
+}
+
+:root {
+  --background: #101010;
+  --logo: #86BBD8;
+  --input: #ededed;
+  --headline: #ededed;
+}
+
+body {
+  background-size: cover;
+  background-color: var(--background);
+  color: var(--headline);
+}
+
+#input {
+  color: var(--input);
+  background-color: var(--background);
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-family: "JetBrainsMono";
+  font-size: 16px;
+  text-align: right;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+
+/* Arch logo */
+/* stolen from https://codepen.io/mahdi-safarian/pen/xBLeEa
+by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
+.container {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  margin: auto;
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  border-bottom: 250px solid var(--logo);
+  margin: 40px auto;
+}
+
+.shoulder {
+  height: 100px;
+  width: 250px;
+  background-color: var(--background);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 100px;
+  left: 75px
+}
+
+.head {
+  height: 100px;
+  width: 65px;
+  background-color: var(--background);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 160px;
+  left: 170px;
+}
+
+.sharp-left {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 150px;
+  width: 0px;
+  height: 0xpx;
+  border-top: 30px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 10px solid var(--background);
+  margin: 40px auto;
+  transform: rotate(40deg);
+}
+
+.sharp-right {
+  content: "";
+  top: 100px;
+  right: 80px;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-top: 30px solid transparent;
+  border-left: 70px solid transparent;
+  border-bottom: 10px solid var(--background);
+  margin: 40px auto;
+  transform: rotate(30deg);
+}
+
+/* for vertical centering */
+.outer {
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.middle {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.inner {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -10%;
+  margin-bottom: -5%;
+}
+
+/* Text under the logo */
+.headline {
+  font-family: 'JetBrainsMono';
+  font-size: 21pt;
+  text-align: center;
+}
