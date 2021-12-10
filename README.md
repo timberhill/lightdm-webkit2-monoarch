@@ -20,17 +20,13 @@ These should be installed and configured.
 
 ## Installation
 
-1. Clone the repo
-    ```sh
-    git clone git@github.com:timberhill/lightdm-webkit2-monoarch.git
-    ```
+Run the install script (requires `sudo` to copy files to /usr/share/lightdm-webkit/themes)
 
-2. Install the theme
-    ```sh
-    cd lightdm-webkit2-monoarch && ./install.sh
-    ```
+```bash
+curl -sSL https://raw.githubusercontent.com/timberhill/lightdm-webkit2-monoarch/main/install.sh | bash -
+```
 
-3. Reboot and all should be gut!
+Alternatively, clone the repo and copy the files manually.
 
 ## Customisation
 
