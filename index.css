@@ -18,20 +18,6 @@ body {
   color: var(--headline);
 }
 
-#input {
-  color: var(--input);
-  background-color: var(--background);
-  border: none;
-  outline: none;
-  padding: 5px;
-  font-family: "JetBrainsMono";
-  font-size: 16px;
-  text-align: right;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-}
-
 
 /* Arch logo */
 /* stolen from https://codepen.io/mahdi-safarian/pen/xBLeEa
@@ -127,4 +113,27 @@ by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
   font-family: 'JetBrainsMono';
   font-size: 21pt;
   text-align: center;
+}
+
+.input {
+  color: var(--input);
+  background-color: var(--background);
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-family: "JetBrainsMono";
+  font-size: 16px;
+  text-align: right;
+  /* position: absolute; */
+  bottom: 20px;
+  right: 20px;
+  clear: both;
+  width: 150px;
+}
+
+.bottom-right {
+  position: absolute;
+  clear:both;
+  bottom: 20px;
+  right: 20px;
 }
