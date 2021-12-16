@@ -22,7 +22,7 @@ headlines = [
     "the more I work with arch, the less empathy I have"
 ]
 
-defaultUser = null //"timberhill"
+defaultUser = null; // set this to your username to only enter a password at login
 
 var usernameElement = document.getElementById("username");
 var input = document.getElementById("input");
@@ -37,6 +37,18 @@ const InputType = {
     password: "password"
 }
 
+
+function userIsValid(username) {
+    for (var i = 0; i < lightdm.users.length; i++) {
+        if (username === lightdm.users[i]["username"]) {
+            return true;
+        }
+    }
+    console.warn("User " + defaultUser + " is not found. Available users are below");
+    console.warn(lightdm.users);
+    return false;
+}
+
 function setInputType (inputType) {
     input.value = "";
     input.placeholder = inputType;
@@ -49,7 +61,7 @@ function setInputType (inputType) {
     } else if (inputType == InputType.password) {
         input.type = "password";
     } else {
-        console.error("Wrong input type: " + inputType)
+        console.error("Wrong input type: " + inputType);
     }
 
     input.focus();
@@ -65,11 +77,13 @@ function authenticate(inputValue) {
 }
 
 function sendUsername (username) {
+    console.debug("Sending username to lightdm: " + username);
     lightdm.authenticate(username);
     setInputType(InputType.password)
 }
 
 function sendPassword (password) {
+    console.debug("Sending password to lightdm");
     lightdm.respond(password);
 }
 
@@ -88,22 +102,27 @@ function setHeadline() {
 }
 
 function resetGreeter() {
+    console.debug("Resetting the greeter");
     setHeadline();
-    showUsername(defaultUser);
-    if (defaultUser) {
+    if (defaultUser && userIsValid(defaultUser)) {
+        console.debug("using default user: " + defaultUser);
+        showUsername(defaultUser);
         sendUsername(defaultUser);
         setInputType(InputType.password)
     } else {
+        showUsername(null);
         setInputType(InputType.username)
     }
 }
 
 window.authentication_complete = function() {
     if (lightdm.is_authenticated) {
+        console.debug("Authentication successful");
         $( 'body' ).fadeOut( 1000, () => {
             lightdm.login(lightdm.authentication_user, null);
         } );
     } else {
+        console.debug("Authentication failed");
         resetGreeter();
     }
 }
