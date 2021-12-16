@@ -131,6 +131,11 @@ by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
   width: 150px;
 }
 
+.username {
+  text-align: right;
+  opacity: 0.45;
+}
+
 .bottom-right {
   position: absolute;
   clear:both;
