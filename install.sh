@@ -1,7 +1,7 @@
 #!/bin/sh
 
 check_status () {
-    if [ "$1" -gt 0 ]; then echo $2 && rm -rf $3 && exit 1; fi	
+    if [ "$1" -gt 0 ]; then echo $2 && rm -rf $3 && exit 1; fi
 }
 
 
@@ -21,4 +21,3 @@ sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = monoarch #\1/g' /etc/li
 check_status $status "...failed updating /etc/lightdm/lightdm-webkit2-greeter.conf" $repo_folder
 
 echo "...done!"
-

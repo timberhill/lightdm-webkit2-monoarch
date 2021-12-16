@@ -13,6 +13,7 @@ headlines = [
     "may the --force be with you",
     "welcome /home",
     "there is no place like 127.0.0.1",
+    "there is no place like ~",
     "RTFM",
     "no bugs, just tons of features",
     "if you can read this, xorg is still working",
@@ -21,6 +22,9 @@ headlines = [
     "the more I work with arch, the less empathy I have"
 ]
 
+defaultUser = null; // set this to your username to only enter a password at login
+
+var usernameElement = document.getElementById("username");
 var input = document.getElementById("input");
 input.addEventListener("keydown", function (e) {
     if (e.keyCode === 13) {
@@ -28,20 +32,66 @@ input.addEventListener("keydown", function (e) {
     }
 });
 
-window.authentication_complete = function() {
-    if (lightdm.is_authenticated) {
-        console.log("Authenticated!");
-        $( 'body' ).fadeOut( 1000, () => {
-            lightdm.login(lightdm.authentication_user, null);
-        } );
-    } else {
-        setHeadline();
-        input.value = "";
-        input.placeholder = "user";
+const InputType = {
+    username: "username",
+    password: "password"
+}
+
+
+function userIsValid(username) {
+    for (var i = 0; i < lightdm.users.length; i++) {
+        if (username === lightdm.users[i]["username"]) {
+            return true;
+        }
+    }
+    console.warn("User " + defaultUser + " is not found. Available users are below");
+    console.warn(lightdm.users);
+    return false;
+}
+
+function setInputType (inputType) {
+    input.value = "";
+    input.placeholder = inputType;
+    input.disabled = false;
+
+    console.debug("Setting input type to " + inputType)
+
+    if (inputType == InputType.username) {
         input.type = "text";
-        input.disabled = false;
-        input.focus();
-        input.select();
+    } else if (inputType == InputType.password) {
+        input.type = "password";
+    } else {
+        console.error("Wrong input type: " + inputType);
+    }
+
+    input.focus();
+    input.select();
+}
+
+function authenticate(inputValue) {
+    if(!lightdm.in_authentication || !lightdm.authentication_user) {
+        sendUsername(inputValue);
+    } else {
+        sendPassword(inputValue);
+    }
+}
+
+function sendUsername (username) {
+    console.debug("Sending username to lightdm: " + username);
+    lightdm.authenticate(username);
+    setInputType(InputType.password)
+}
+
+function sendPassword (password) {
+    console.debug("Sending password to lightdm");
+    lightdm.respond(password);
+}
+
+function showUsername(username) {
+    if (username) {
+        usernameElement.innerText = username + " /"
+    } else {
+        usernameElement.innerText = ""
     }
 }
 
@@ -51,25 +101,32 @@ function setHeadline() {
     element.innerHTML = headlines[index]
 }
 
-window.onload = function() {
+function resetGreeter() {
+    console.debug("Resetting the greeter");
     setHeadline();
-    input.focus();
-    input.select();
-    input.value = lightdm.select_user_hint;
-    if(input.value) {
-      authenticate(input.value);
+    if (defaultUser && userIsValid(defaultUser)) {
+        console.debug("using default user: " + defaultUser);
+        showUsername(defaultUser);
+        sendUsername(defaultUser);
+        setInputType(InputType.password)
+    } else {
+        showUsername(null);
+        setInputType(InputType.username)
     }
 }
 
-function authenticate(input_text) {
-    if(!lightdm.in_authentication || !lightdm.authentication_user) {
-        lightdm.authenticate(input_text);
-        input.value = "";
-        input.type = "password";
-        input.placeholder = "password";
-        input.disabled = false;
+window.authentication_complete = function() {
+    if (lightdm.is_authenticated) {
+        console.debug("Authentication successful");
+        $( 'body' ).fadeOut( 1000, () => {
+            lightdm.login(lightdm.authentication_user, null);
+        } );
     } else {
-        input.disabled = true;
-        lightdm.respond(input_text);
+        console.debug("Authentication failed");
+        resetGreeter();
     }
+}
+
+window.onload = function() {
+    resetGreeter();
 }

@@ -32,6 +32,10 @@ Alternatively, clone the repo and copy the files manually.
 
 There are no config files, but it's quite simple to make some changes.
 
+### Default username
+
+If you want the theme to always use the same username, set `defaultUser` variable in `main.js` to the desired username.
+
 ### Colours
 
 The base colours are set in [`index.css`](index.css), tweak them at your will:
@@ -44,6 +48,7 @@ The base colours are set in [`index.css`](index.css), tweak them at your will:
   --headline: #ededed;   /*white ish*/
 }
 ```
+
 ### Headline text
 
 The text is chosen randomly from the list at the top of [`main.js`](main.js), feel free to add your own and/or raise a PR!
