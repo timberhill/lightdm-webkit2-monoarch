@@ -92,7 +92,8 @@ by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  margin-top: 5%;
+  height: 80%;
   width: 100%;
 }
 
@@ -113,6 +114,7 @@ by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
   font-family: 'JetBrainsMono';
   font-size: 21pt;
   text-align: center;
+  padding-top: 3%;
 }
 
 .input {

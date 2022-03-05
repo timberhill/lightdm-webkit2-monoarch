@@ -19,7 +19,11 @@ headlines = [
     "if you can read this, xorg is still working",
     "makepkg, not war",
     "because you can't open windows in space",
-    "the more I work with arch, the less empathy I have"
+    "the more I work with arch, the less empathy I have",
+    "BTW",
+    "yea I use windows 8",
+    "some assembly required",
+    "yea, btw I use it"
 ]
 
 defaultUser = null; // set this to your username to only enter a password at login
