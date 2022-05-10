@@ -18,6 +18,14 @@ body {
   color: var(--headline);
 }
 
+body:not(.shoulder):not(.head):not(.sharp-left):not(.sharp-right) {
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* Arch logo */
 /* stolen from https://codepen.io/mahdi-safarian/pen/xBLeEa
