@@ -18,6 +18,14 @@ body {
   color: var(--headline);
 }
 
+body:not(.shoulder):not(.head):not(.sharp-left):not(.sharp-right) {
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 /* Arch logo */
 /* stolen from https://codepen.io/mahdi-safarian/pen/xBLeEa
@@ -143,4 +151,111 @@ by Mahdi Safarian: https://www.linkedin.com/in/mahdi-safariyan/ */
   clear:both;
   bottom: 20px;
   right: 20px;
+}
+
+.top-right {
+  position: absolute;
+  clear: both;
+  top: 20px;
+  right: 28px;
+}
+
+.sessionLabel {
+  border: none;
+  outline: none;
+  float: right;
+  font-family: "JetBrainsMono";
+  font-size: 16px;
+  text-align: right;
+  clear: both;
+  opacity: .45;
+  transition: .5s;
+}
+
+.sessionLabel::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  top: 7px;
+  right: -13px;
+  position: absolute;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  transform: rotate(45deg); 
+  transition: .5s;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+#sessionCheckbox:checked ~ .sessionLabel::before {
+  top: 5px;
+  right: -15px;
+  transform: rotate(135deg);
+}
+
+.sessionLabel:hover {
+  opacity: 1;
+}
+
+.sessionCheckbox {
+  display: none;
+}
+
+.sessionList {
+  height: 65px;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  float: right;
+  transform: translateX(12px);
+  transition: visibility 0.5s, opacity 0.5s;
+  opacity: 0;
+}
+
+#sessionCheckbox:checked ~ .sessionList {
+  visibility: visible;
+  opacity: 1;
+}
+
+.sessionList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sessionList::-webkit-scrollbar-thumb {
+  background-color: #737373;
+}
+
+.sessionList li {
+  list-style: none;
+  text-align: right;
+  font-family: "JetBrainsMono";
+  font-size: 16px;
+  opacity: 0.45;
+  padding-right: 8px;
+  transition: .5s;
+  white-space: nowrap;
+}
+.sessionList li:hover {
+  opacity: 1;
+}
+
+.sessionList li a {
+  color: #fff;
+  text-decoration: none;
+}
+.sessionList li a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+.sessionList li a:active {
+  color: #fff;
+  text-decoration: none;
+}
+.sessionList li a:link {
+  color: #fff;
+  text-decoration: none;
+}
+.sessionList li a:hover {
+  cursor: default;
+  text-decoration: none;
 }

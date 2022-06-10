@@ -41,6 +41,9 @@ const InputType = {
     password: "password"
 }
 
+var sessionCheckbox = document.getElementById("sessionCheckbox");
+var sessionList = document.getElementById("sessionList");
+var sessionLabel = document.getElementById("sessionLabel");
 
 function userIsValid(username) {
     for (var i = 0; i < lightdm.users.length; i++) {
@@ -108,6 +111,7 @@ function setHeadline() {
 function resetGreeter() {
     console.debug("Resetting the greeter");
     setHeadline();
+    showSessions();
     if (defaultUser && userIsValid(defaultUser)) {
         console.debug("using default user: " + defaultUser);
         showUsername(defaultUser);
@@ -122,8 +126,9 @@ function resetGreeter() {
 window.authentication_complete = function() {
     if (lightdm.is_authenticated) {
         console.debug("Authentication successful");
+        var sessionKey = sessionLabel.getAttribute("session-id");
         $( 'body' ).fadeOut( 1000, () => {
-            lightdm.login(lightdm.authentication_user, null);
+            lightdm.login(lightdm.authentication_user, sessionKey);
         } );
     } else {
         console.debug("Authentication failed");
@@ -133,4 +138,48 @@ window.authentication_complete = function() {
 
 window.onload = function() {
     resetGreeter();
+}
+
+function showSessions() {
+    var sessions = [...lightdm.sessions];
+    // filter sessions if they are already listed
+    sessions = sessions.filter(function (elem) {
+        var isNotInList = true;
+        for (var i of sessionList.children) {
+            isNotInList = isNotInList && i.children[0].keydm !== elem.key;
+        }
+        return isNotInList;
+    });
+
+    // set default session
+    const sessionName = window.localStorage.getItem("sessionName") == null ? "Default" : window.localStorage.getItem("sessionName");
+    const key = window.localStorage.getItem("key") == null ? "" : window.localStorage.getItem("key");
+    sessionLabel.textContent = sessionName;
+    sessionLabel.setAttribute("session-id", key);
+
+    // set available sessions list
+    for (var session of sessions) {
+        var liElem = document.createElement("li");
+        var aElem = document.createElement("a");
+
+        aElem.setAttribute("href", "#");
+        aElem.textContent = session.name;
+        aElem.keydm = session.key;
+        aElem.addEventListener("click", setSession, false);
+
+        liElem.appendChild(aElem);
+        sessionList.appendChild(liElem);
+    }
+}
+
+function setSession(e) {
+    if (sessionCheckbox.checked) {
+        sessionCheckbox.checked = false;
+        const sessionName = e.currentTarget.textContent;
+        const key = e.currentTarget.keydm;
+        sessionLabel.textContent = sessionName;
+        sessionLabel.setAttribute("session-id", key);
+        window.localStorage.setItem("sessionName", sessionName);
+        window.localStorage.setItem("key", key);
+    }
 }
