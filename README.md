@@ -6,8 +6,6 @@ _Heavily_ ~~plagerised from~~ inspired by `lightdm-webkit2-theme-arch` ([aur](ht
 The original seems to be [this one](https://github.com/dkter/arch-lightdm-theme) according to [this thread](https://www.reddit.com/r/unixporn/comments/rdacpo/comment/ho0k8yt/?utm_source=share&utm_medium=web2x&context=3).
 It's essentially the same thing, but all html/css rather than images. It also uses JetBrains Mono because it is a superior typeface<sup>_fight me_</sup>.
 
-The username/password field is in the bottom right corner, you can't change a WM.
-
 ## Example
 
 ![Screenshot](screenshots/screen.png)
